@@ -1,0 +1,3 @@
+module IRPF {
+	requires junit;
+}
