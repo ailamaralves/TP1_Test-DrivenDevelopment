@@ -1,5 +1,5 @@
 package IRPFExceptions;
 
-public class ValorRendimentoInvalidoException {
+public class ValorRendimentoInvalidoException extends Exception  {
 
 }

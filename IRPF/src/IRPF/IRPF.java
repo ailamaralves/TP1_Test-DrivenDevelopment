@@ -2,26 +2,30 @@ package IRPF;
 
 import java.util.LinkedList;
 import java.util.List;
+import IRPFExceptions.*;
 
 public class IRPF {
 	
 
 	private float totalRendimentos = 0;
 	private float totalDeducoes = 0;
+
 	private List<Float> rendimentos;
 	private List<Float> deducoes;
 	
 	private float baseDoCalculo;
-	private float[] imposto;
+//	private float[] imposto;
+	private float totalImposto;
 	
 	private float aliquotaEfetiva;
 	
 	public float getBaseDoCalculo() {
+		baseDoCalculo = totalRendimentos - totalDeducoes; 
 		return baseDoCalculo;
 	}
 
-	public float getImposto() {
-		return imposto[0];
+	public float getTotalImposto() {
+		return totalImposto;
 	}
 
 	public float getTotalDeducao() {
@@ -38,30 +42,73 @@ public class IRPF {
 	}
 	
 	
-	public float cadastrarRendimento(String descricao, float valor) {
-		rendimentos.add((float) 100);
-		totalRendimentos += 100;
+	public float cadastrarRendimento(String descricao, float valor) throws DescricaoEmBrancoException, ValorRendimentoInvalidoException {
+		if(descricao == "") {
+			throw new DescricaoEmBrancoException();
+		}
+		if(valor <= 0f) {
+			throw new ValorRendimentoInvalidoException();
+		}
+		rendimentos.add((float) valor);
+		totalRendimentos += valor;
 		return totalRendimentos;
 	}
 	
-	public float cadastrarDeducao(String descricao, float valor) {
-		deducoes.add((float) 100);
-		totalDeducoes += 100;
+	public float cadastrarDeducao(String descricao, float valor) throws DescricaoEmBrancoException, ValorDeducaoInvalidoException {
+		if(descricao == "") {
+			throw new DescricaoEmBrancoException();
+		}
+		if(valor <= 0f) {
+			throw new ValorDeducaoInvalidoException();
+		}
+		deducoes.add((float) valor);
+		totalDeducoes += valor;
 		
 		return totalDeducoes;
 	}
 	
+	public float cadastrarDenpedente(String nome, String dataNasc) throws NomeEmBrancoException {
+		if(nome == "") {
+			throw new NomeEmBrancoException();
+		}
+		totalDeducoes += 189.59;
+		return totalDeducoes;
+	}
+	
 	public float calcularImposto() {
-		baseDoCalculo = totalRendimentos - totalDeducoes;
+		this.getBaseDoCalculo();
+		float faixa1 = 1903.98f;
+		float faixa2 = 2826.65f;
+		float faixa3 = 3751.05f;
+		float faixa4 = 4664.68f;
 		
-		
-		return 1000;
+		if (baseDoCalculo <= faixa1 ) {
+			totalImposto = 0;
+			return totalImposto;
+		}
+		else if (baseDoCalculo <= faixa2 ) {
+			totalImposto = (baseDoCalculo - faixa1) * 0.075f;
+			return totalImposto;
+		}
+		else if (baseDoCalculo <= faixa3 ) {
+			totalImposto = (baseDoCalculo - faixa2) * 0.15f + 69.2003f;
+			return totalImposto;
+		}
+		else if (baseDoCalculo <= faixa4 ) {
+			totalImposto = (baseDoCalculo - faixa3) * 0.225f + 69.2003f + 138.6600f;
+			return totalImposto;
+		}
+		else {
+			totalImposto = (baseDoCalculo - faixa4) * 0.275f + 69.2003f + 138.6600f + 205.5667f;
+			return totalImposto;
+		}
 	}
 
 	public float calcularAliquota() {
+		this.getBaseDoCalculo();
 		
-		
-		return 2000;
+		aliquotaEfetiva = totalImposto/baseDoCalculo * 100;
+		return aliquotaEfetiva;
 	}
 	
 	

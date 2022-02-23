@@ -1,5 +1,6 @@
 package IRPFExceptions;
 
-public class NomeEmBrancoException {
+public class NomeEmBrancoException extends Exception {
+
 
 }
