@@ -14,18 +14,17 @@ public class IRPF {
 	private List<Float> deducoes;
 	
 	private float baseDoCalculo;
-//	private float[] imposto;
 	private float totalImposto;
 	
 	private float aliquotaEfetiva;
 	
 	public float getBaseDoCalculo() {
-		baseDoCalculo = totalRendimentos - totalDeducoes; 
-		return baseDoCalculo;
+		baseDoCalculo = totalRendimentos - totalDeducoes;
+		return Math.round(baseDoCalculo * 100f)/100f;
 	}
 
 	public float getTotalImposto() {
-		return totalImposto;
+		return Math.round(totalImposto * 100f)/100f;
 	}
 
 	public float getTotalDeducao() {
@@ -105,10 +104,8 @@ public class IRPF {
 	}
 
 	public float calcularAliquota() {
-		this.getBaseDoCalculo();
-		
-		aliquotaEfetiva = totalImposto/baseDoCalculo * 100;
-		return aliquotaEfetiva;
+		aliquotaEfetiva = totalImposto/totalRendimentos * 100;
+		return Math.round(aliquotaEfetiva * 100f)/100f;
 	}
 	
 	
