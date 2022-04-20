@@ -42,21 +42,27 @@ public class IRPF {
 	
 	
 	public float cadastrarRendimento(String descricao, float valor) throws DescricaoEmBrancoException, ValorRendimentoInvalidoException {
-		if(descricao == "") {
-			throw new DescricaoEmBrancoException();
-		}
-		if(valor <= 0f) {
-			throw new ValorRendimentoInvalidoException();
-		}
+		throwExceptionForEmptyDescription(descricao);
+		throwExceptionForInvalidValue(valor);
 		rendimentos.add((float) valor);
 		totalRendimentos += valor;
 		return totalRendimentos;
 	}
-	
-	public float cadastrarDeducao(String descricao, float valor) throws DescricaoEmBrancoException, ValorDeducaoInvalidoException {
+
+	private void throwExceptionForInvalidValue(float valor) throws ValorRendimentoInvalidoException {
+		if(valor <= 0f) {
+			throw new ValorRendimentoInvalidoException();
+		}
+	}
+
+	private void throwExceptionForEmptyDescription(String descricao) throws DescricaoEmBrancoException {
 		if(descricao == "") {
 			throw new DescricaoEmBrancoException();
 		}
+	}
+	
+	public float cadastrarDeducao(String descricao, float valor) throws DescricaoEmBrancoException, ValorDeducaoInvalidoException {
+		throwExceptionForEmptyDescription(descricao);
 		if(valor <= 0f) {
 			throw new ValorDeducaoInvalidoException();
 		}
@@ -110,4 +116,5 @@ public class IRPF {
 	
 	
 }
+
 
