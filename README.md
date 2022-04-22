@@ -2,9 +2,9 @@ UnB - Universidade de Brasilia
 FGA - Faculdade do Gama  
 TPPE - Técnicas de Programação para Plataformas Emergentes  
 
-### Trabalho Prático 1 - Test-Driven Development
+### Trabalho Prático 2 - *Refactoring*
 
-O presente trabalho consiste na criação de um simulador similar ao disponibilizado pela RFB. Foi construído através do método de TDD utilizando as técnicas de falsificação, duplicação e triangulação de testes.
+Essa atualização do trabalho tem como intuito exercitar o conteúdo de Refactoring através das aplicações de algumas de suas operações no projeto apresentado no trabalho prático 1. Foram realizadas três operações de refatoração no projeto: a) Extrair método, b) Substituir método por método objeto e c) Extrair constante respectivamente. 
 
 ### Alunos
 |Matrícula | Aluno | GitHub
